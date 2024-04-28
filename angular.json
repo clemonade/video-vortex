@@ -25,7 +25,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css",
+              "src/styles.scss",
               {
                 "input": "node_modules/@ionic/angular/css/core.css"
               },
@@ -57,7 +57,7 @@
                 "input": "node_modules/@ionic/angular/css/flex-utils.css"
               },
               {
-                "input": "src/theme/variables.css"
+                "input": "src/theme/variables.scss"
               }
             ],
             "scripts": []
@@ -117,7 +117,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": []
           }
@@ -157,7 +157,7 @@
         }
       }
     }
-  },
+  },F
   "schematics": {
     "@schematics/angular": {
       "component": {
@@ -169,6 +169,9 @@
     },
     "@ionic/angular-toolkit:page": {
       "styleext": "scss"
+    },
+    "@schematics/angular:component": {
+      "style": "scss"
     }
   },
   "cli": {
