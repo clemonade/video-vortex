@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, effect, inject} from '@angular/core';
 import {
   IonFab,
   IonFabButton,
@@ -8,13 +8,13 @@ import {
   IonPickerColumn,
   IonPickerColumnOption
 } from "@ionic/angular/standalone";
-import {FillPipe} from "../../shared/pipes/fill.pipe";
+import {FillPipe} from "../../pipes/fill.pipe";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
-import {ActionFormControls} from "./action.model";
-import {PickerColumnComponent} from "../../shared/components/picker-column/picker-column.component";
-import {AsyncPipe, JsonPipe} from "@angular/common";
-import {tap} from "rxjs";
-import {MAX_FILL_VALUE} from "../../core/constants/app.constant";
+import {PickerColumnComponent} from "../picker-column/picker-column.component";
+import {StateService} from "../../../core/services/state.service";
+import {ActionFormControls} from "../../../core/models/app.model";
+import { MAX_FILL_VALUE } from '../../../core/constants/app.constant';
+import {toSignal} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-action',
@@ -30,14 +30,14 @@ import {MAX_FILL_VALUE} from "../../core/constants/app.constant";
     FillPipe,
     ReactiveFormsModule,
     PickerColumnComponent,
-    JsonPipe,
-    AsyncPipe
   ],
   templateUrl: './action.component.html',
   styleUrl: './action.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActionComponent {
+  stateService = inject(StateService)
+
   form = new FormGroup<ActionFormControls>({
     category: new FormControl('runtime', {nonNullable: true}),
     type: new FormControl('forward', {nonNullable: true}),
@@ -46,17 +46,19 @@ export class ActionComponent {
 
   MAX_FILL_VALUE = MAX_FILL_VALUE;
 
-  categoryChange$ = this.form.controls.category.valueChanges.pipe(
-    tap((category) => {
-      switch (category) {
+  categoryChange$ = toSignal(this.form.controls.category.valueChanges)
+
+  constructor() {
+    effect(() => {
+      switch (this.categoryChange$()) {
         case "runtime": {
           setTimeout(() => this.form.controls.type.setValue('forward'))
           break;
         }
         case "money": {
-          setTimeout(() => this.form.controls.type.setValue('plus'))
+          setTimeout(() => this.form.controls.type.setValue('credit'))
         }
       }
     })
-  )
+  }
 }

@@ -1,0 +1,22 @@
+<ion-card color="primary">
+  <ion-card-header>
+    <ion-card-title>Player 1</ion-card-title>
+    <ion-card-subtitle>Round Totals</ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+    <div class="flex justify-between">
+      <div class="flex items-baseline gap-2">
+        <ion-text>FWD</ion-text>
+        <ion-text><h1>{{ stateService.totalForward$() }}</h1></ion-text>
+      </div>
+      <div class="flex items-baseline gap-2">
+        <ion-text>REW</ion-text>
+        <ion-text><h1>{{ stateService.totalRewind$() }}</h1></ion-text>
+      </div>
+      <div class="flex items-baseline gap-2">
+        <ion-text>$</ion-text>
+        <ion-text><h1>{{ stateService.totalMoney$() }}</h1></ion-text>
+      </div>
+    </div>
+  </ion-card-content>
+</ion-card>

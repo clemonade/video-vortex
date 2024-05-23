@@ -157,7 +157,7 @@
         }
       }
     }
-  },F
+  },
   "schematics": {
     "@schematics/angular": {
       "component": {

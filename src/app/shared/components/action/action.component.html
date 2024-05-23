@@ -1,0 +1,62 @@
+<!--[backdropBreakpoint]="1"-->
+<ion-modal trigger="open-modal"
+           [breakpoints]="[0, 1]"
+           [initialBreakpoint]="1"
+>
+  <ng-template>
+    <div class="flex flex-col items-center p-4 pt-8">
+      <ion-picker>
+        <app-picker-column [formControl]="form.controls.category">
+          <ion-picker-column-option value="runtime">Runtime</ion-picker-column-option>
+          <ion-picker-column-option value="money">Money</ion-picker-column-option>
+        </app-picker-column>
+
+        <app-picker-column [formControl]="form.controls.type">
+          <!--TODO: formArray to control disabled-->
+          <ion-picker-column-option value="rewind"
+                                    [disabled]="form.controls.category.value !== 'runtime'">REW
+          </ion-picker-column-option>
+          <ion-picker-column-option value="forward"
+                                    [disabled]="form.controls.category.value !== 'runtime'">FWD
+          </ion-picker-column-option>
+          <ion-picker-column-option value="timeshift"
+                                    [disabled]="form.controls.category.value !== 'runtime'">Timeshift
+          </ion-picker-column-option>
+          <ion-picker-column-option value="credit"
+                                    [disabled]="form.controls.category.value !== 'money'">+
+          </ion-picker-column-option>
+          <ion-picker-column-option value="debit"
+                                    [disabled]="form.controls.category.value !== 'money'">-
+          </ion-picker-column-option>
+        </app-picker-column>
+
+        <app-picker-column [formControl]="form.controls.value">
+          <!--            <div slot="prefix">-->
+          <!--              @switch (form.controls.type.value) {-->
+          <!--                @case ('forward') {-->
+          <!--                  >>-->
+          <!--                }-->
+          <!--                @case ('rewind') {-->
+          <!--                  <<-->
+          <!--                }-->
+          <!--                @case ('timeshift') {-->
+          <!--                  <>-->
+          <!--                }-->
+          <!--                @default {-->
+          <!--                  $-->
+          <!--                }-->
+          <!--              }-->
+          <!--            </div>-->
+          @for (value of MAX_FILL_VALUE | fill; track $index) {
+            <ion-picker-column-option [value]="$index + 1">{{ $index + 1 }}</ion-picker-column-option>
+          }
+        </app-picker-column>
+
+      </ion-picker>
+
+      <ion-fab-button>
+        <ion-icon name="add" (click)="stateService.addAction(form.getRawValue())"></ion-icon>
+      </ion-fab-button>
+    </div>
+  </ng-template>
+</ion-modal>

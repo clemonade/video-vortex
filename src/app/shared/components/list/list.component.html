@@ -1,0 +1,26 @@
+<ion-list class="p-4">
+  @for (action of stateService.actions$(); track $index) {
+    <ion-item>
+      <ion-label>
+        <div class="flex justify-between items-center">
+          <div class="flex items-center">
+            <ion-text>{{ CATEGORY_TYPE_TEXT_MAP[action.type] }}</ion-text>
+            <ion-chip [color]="CATEGORY_COLOR_MAP[action.category]">
+              {{ CATEGORY_TYPE_TEXT_MAP[action.category] }}
+            </ion-chip>
+          </div>
+          <ion-text>
+            @if (action.type === 'credit') {
+              + $
+            }
+            @if (action.type === 'debit') {
+              - $
+            }
+            {{ action.value | number: '1.2-2' }}
+          </ion-text>
+        </div>
+
+      </ion-label>
+    </ion-item>
+  }
+</ion-list>
