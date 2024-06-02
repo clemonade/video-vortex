@@ -47,15 +47,14 @@
           <!--                }-->
           <!--              }-->
           <!--            </div>-->
-          @for (value of MAX_FILL_VALUE | fill; track $index) {
+          @for (value of MAX_FILL_LENGTH | fill; track $index) {
             <ion-picker-column-option [value]="$index + 1">{{ $index + 1 }}</ion-picker-column-option>
           }
         </app-picker-column>
-
       </ion-picker>
 
       <ion-fab-button>
-        <ion-icon name="add" (click)="stateService.addAction(form.getRawValue())"></ion-icon>
+        <ion-icon name="add" (click)="actionChange.emit(form.getRawValue())"></ion-icon>
       </ion-fab-button>
     </div>
   </ng-template>

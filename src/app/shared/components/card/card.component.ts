@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, input} from '@angular/core';
 import {
   IonCard,
   IonCardContent,
@@ -7,7 +7,9 @@ import {
   IonCardTitle,
   IonText
 } from "@ionic/angular/standalone";
-import {StateService} from "../../../core/services/state.service";
+import {KeyValueTotal, Total} from "./card.model";
+import {KeyValuePipe} from "@angular/common";
+import {CATEGORY_TYPE_SHORT_TEXT_MAP} from "../../../core/constants/app.constant";
 
 @Component({
   selector: 'app-card',
@@ -18,12 +20,21 @@ import {StateService} from "../../../core/services/state.service";
     IonCardHeader,
     IonCardSubtitle,
     IonCardTitle,
-    IonText
+    IonText,
+    KeyValuePipe
   ],
   templateUrl: './card.component.html',
   styleUrl: './card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CardComponent {
-  stateService = inject(StateService);
+  total = input<Total>({
+    forward: 0,
+    rewind: 0,
+    money: 0
+  })
+
+  protected readonly CATEGORY_TYPE_SHORT_TEXT_MAP = CATEGORY_TYPE_SHORT_TEXT_MAP;
+
+  compareFn = (_: KeyValueTotal) => 0;
 }

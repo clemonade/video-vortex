@@ -1,14 +1,14 @@
 <ion-header>
   <ion-toolbar>
-    <app-card></app-card>
+    <app-card [total]="total$()"></app-card>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <app-list></app-list>
+  <app-list [actions]="playerService.actions$()"></app-list>
   <ion-fab slot="fixed" vertical="bottom" horizontal="center">
     <ion-fab-button id="open-modal">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-  <app-action></app-action>
+  <app-action (actionChange)="playerService.addAction($event)"></app-action>
 </ion-content>

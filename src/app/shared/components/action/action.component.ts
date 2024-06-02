@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, effect, inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, effect, output} from '@angular/core';
 import {
   IonFab,
   IonFabButton,
@@ -11,9 +11,8 @@ import {
 import {FillPipe} from "../../pipes/fill.pipe";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {PickerColumnComponent} from "../picker-column/picker-column.component";
-import {StateService} from "../../../core/services/state.service";
-import {ActionFormControls} from "../../../core/models/app.model";
-import { MAX_FILL_VALUE } from '../../../core/constants/app.constant';
+import {Action, ActionFormControls} from "../../../core/models/app.model";
+import {MAX_FILL_LENGTH} from '../../../core/constants/app.constant';
 import {toSignal} from "@angular/core/rxjs-interop";
 
 @Component({
@@ -36,7 +35,7 @@ import {toSignal} from "@angular/core/rxjs-interop";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActionComponent {
-  stateService = inject(StateService)
+  actionChange = output<Action>()
 
   form = new FormGroup<ActionFormControls>({
     category: new FormControl('runtime', {nonNullable: true}),
@@ -44,7 +43,7 @@ export class ActionComponent {
     value: new FormControl(1, {nonNullable: true}),
   })
 
-  MAX_FILL_VALUE = MAX_FILL_VALUE;
+  protected readonly MAX_FILL_LENGTH = MAX_FILL_LENGTH;
 
   categoryChange$ = toSignal(this.form.controls.category.valueChanges)
 

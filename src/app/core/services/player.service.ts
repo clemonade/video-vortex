@@ -1,11 +1,10 @@
 import {computed, Injectable, signal} from '@angular/core';
 import {Action} from "../models/app.model";
 
-// TODO: consolidate state service usage
 @Injectable({
   providedIn: 'root'
 })
-export class StateService {
+export class PlayerService {
   actions$ = signal<Action[]>([]);
 
   totalForward$ = computed(() => {
@@ -41,7 +40,7 @@ export class StateService {
       }, 0)
   })
 
-  addAction(action: Action) {
-    this.actions$.update((x) => [...x, action]);
+  addAction(newAction: Action) {
+    this.actions$.update((action) => [...action, newAction]);
   }
 }
