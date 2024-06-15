@@ -2,9 +2,14 @@ import {Category, Type} from "../models/app.model";
 
 export const MAX_FILL_LENGTH = 25;
 
-export const CATEGORY_COLOR_MAP: Record<Category, string> = {
+export const CATEGORY_TYPE_COLOR_MAP: Record<Category | Type, string> = {
   runtime: 'primary',
   money: 'warning',
+  forward: 'primary',
+  rewind: 'secondary',
+  timeshift: 'tertiary',
+  credit: 'success',
+  debit: 'danger',
 }
 
 export const CATEGORY_TYPE_TEXT_MAP: Record<Category | Type, string> = {

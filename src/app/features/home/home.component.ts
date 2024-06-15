@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, computed, inject} from '@angular/core';
 import {IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonToolbar} from "@ionic/angular/standalone";
 import {addIcons} from 'ionicons';
-import {add} from 'ionicons/icons'
+import {add, create, trash} from 'ionicons/icons'
 import {ListComponent} from "../../shared/components/list/list.component";
 import {CardComponent} from "../../shared/components/card/card.component";
 import {ActionComponent} from "../../shared/components/action/action.component";
@@ -38,6 +38,6 @@ export class HomeComponent {
   })
 
   constructor() {
-    addIcons({add})
+    addIcons({add, create, trash})
   }
 }

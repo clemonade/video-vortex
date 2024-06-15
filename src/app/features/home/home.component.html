@@ -4,11 +4,13 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <app-list [actions]="playerService.actions$()"></app-list>
+  <app-list [actions]="playerService.actions$()"
+            (removeAction)="playerService.removeAction($event)">
+  </app-list>
   <ion-fab slot="fixed" vertical="bottom" horizontal="center">
     <ion-fab-button id="open-modal">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-  <app-action (actionChange)="playerService.addAction($event)"></app-action>
+  <app-action (addAction)="playerService.addAction($event)"></app-action>
 </ion-content>

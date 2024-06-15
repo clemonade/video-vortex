@@ -3,25 +3,38 @@
     <ion-card-content>
       <ion-list>
         @for (action of actions(); track $index) {
-          <ion-item>
-            <ion-label>
-              <div class="flex justify-between items-center">
-                <div class="flex items-center">
+          <ion-item-sliding>
+            <ion-item>
+              <ion-label>
+                <div class="flex justify-between items-center">
                   <ion-text>{{ CATEGORY_TYPE_TEXT_MAP[action.type] }}</ion-text>
-                  <ion-chip [color]="CATEGORY_COLOR_MAP[action.category]">
-                    {{ CATEGORY_TYPE_TEXT_MAP[action.category] }}
-                  </ion-chip>
+                  <div class="flex items-center">
+                    <ion-chip [color]="CATEGORY_TYPE_COLOR_MAP[action.category]">
+                      {{ CATEGORY_TYPE_TEXT_MAP[action.category] }}
+                    </ion-chip>
+                    <ion-chip [color]="CATEGORY_TYPE_COLOR_MAP[action.type]">
+                      @if (action.category === 'money') {
+                        {{ CATEGORY_TYPE_SHORT_TEXT_MAP[action.type] }}
+                      }
+                      {{ action.value }}
+                      @if (action.category === 'runtime') {
+                        {{ CATEGORY_TYPE_SHORT_TEXT_MAP[action.type] }}
+                      }
+                    </ion-chip>
+                  </div>
                 </div>
-                <ion-text>
-                  @if (action.type === 'credit' || action.type === 'debit') {
-                    {{ CATEGORY_TYPE_SHORT_TEXT_MAP[action.type] }}
-                  }
-                  {{ action.value }}
-                </ion-text>
-              </div>
+              </ion-label>
+            </ion-item>
 
-            </ion-label>
-          </ion-item>
+            <ion-item-options side="end">
+              <!--<ion-item-option>-->
+              <!--  <ion-icon name="create" slot="icon-only"></ion-icon>-->
+              <!--</ion-item-option>-->
+              <ion-item-option color="danger" expandable>
+                <ion-icon name="trash" slot="icon-only" (click)="removeAction.emit($index)"></ion-icon>
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
         }
       </ion-list>
     </ion-card-content>

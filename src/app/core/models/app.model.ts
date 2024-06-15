@@ -1,7 +1,19 @@
 import {FormControl, FormGroup} from "@angular/forms";
 
-export type Category = 'runtime' | 'money';
-export type Type = 'forward' | 'rewind' | 'timeshift' | 'credit' | 'debit';
+interface Runtime {
+  category: 'runtime'
+  type: 'forward' | 'rewind' | 'timeshift'
+}
+
+interface Money {
+  category: 'money'
+  type: 'credit' | 'debit'
+}
+
+type RuntimeMoney = Runtime | Money;
+
+export type Category = RuntimeMoney['category'];
+export type Type = RuntimeMoney['type'];
 
 export type ActionFormControls = {
   category: FormControl<Category>;

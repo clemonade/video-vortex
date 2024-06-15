@@ -35,7 +35,7 @@ import {toSignal} from "@angular/core/rxjs-interop";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActionComponent {
-  actionChange = output<Action>()
+  addAction = output<Action>()
 
   form = new FormGroup<ActionFormControls>({
     category: new FormControl('runtime', {nonNullable: true}),

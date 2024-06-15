@@ -41,6 +41,10 @@ export class PlayerService {
   })
 
   addAction(newAction: Action) {
-    this.actions$.update((action) => [...action, newAction]);
+    this.actions$.update((actions) => [...actions, newAction]);
+  }
+
+  removeAction(index: number) {
+    this.actions$.update(actions => actions.toSpliced(index, 1))
   }
 }
