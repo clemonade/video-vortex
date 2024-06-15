@@ -30,8 +30,8 @@
               <!--<ion-item-option>-->
               <!--  <ion-icon name="create" slot="icon-only"></ion-icon>-->
               <!--</ion-item-option>-->
-              <ion-item-option color="danger" expandable>
-                <ion-icon name="trash" slot="icon-only" (click)="removeAction.emit($index)"></ion-icon>
+              <ion-item-option color="danger">
+                <ion-icon name="trash" slot="icon-only" (click)="onRemoveAction($index)"></ion-icon>
               </ion-item-option>
             </ion-item-options>
           </ion-item-sliding>

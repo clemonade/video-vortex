@@ -19,7 +19,6 @@ import {toSignal} from "@angular/core/rxjs-interop";
   selector: 'app-action',
   standalone: true,
   imports: [
-    IonModal,
     IonFab,
     IonFabButton,
     IonIcon,

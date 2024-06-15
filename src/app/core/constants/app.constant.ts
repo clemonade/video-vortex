@@ -23,7 +23,7 @@ export const CATEGORY_TYPE_TEXT_MAP: Record<Category | Type, string> = {
 }
 
 export const CATEGORY_TYPE_SHORT_TEXT_MAP: Record<Category | Type, string> = {
-  runtime: CATEGORY_TYPE_TEXT_MAP.runtime,
+  runtime: 'RT',
   money: '$',
   forward: 'FWD',
   rewind: 'REW',

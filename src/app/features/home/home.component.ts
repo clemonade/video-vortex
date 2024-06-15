@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, computed, inject} from '@angular/core';
-import {IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonToolbar} from "@ionic/angular/standalone";
+import {IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonModal, IonToolbar} from "@ionic/angular/standalone";
 import {addIcons} from 'ionicons';
 import {add, create, trash} from 'ionicons/icons'
 import {ListComponent} from "../../shared/components/list/list.component";
@@ -20,7 +20,8 @@ import {Total} from "../../shared/components/card/card.model";
     ListComponent,
     IonToolbar,
     IonHeader,
-    CardComponent
+    CardComponent,
+    IonModal
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -28,6 +29,8 @@ import {Total} from "../../shared/components/card/card.model";
 })
 export class HomeComponent {
   playerService = inject(PlayerService);
+
+  isActionModalOpen: boolean = false;
 
   total$ = computed<Total>(() => {
     return {

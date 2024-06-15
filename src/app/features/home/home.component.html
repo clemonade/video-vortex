@@ -8,9 +8,20 @@
             (removeAction)="playerService.removeAction($event)">
   </app-list>
   <ion-fab slot="fixed" vertical="bottom" horizontal="center">
-    <ion-fab-button id="open-modal">
+    <ion-fab-button (click)="isActionModalOpen = true">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-  <app-action (addAction)="playerService.addAction($event)"></app-action>
+  <!--[backdropBreakpoint]="1"-->
+  <ion-modal [breakpoints]="[0, 1]"
+             [initialBreakpoint]="1"
+             [isOpen]="isActionModalOpen"
+             (ionModalDidDismiss)="isActionModalOpen = false"
+  >
+    <ng-template>
+      <div class="p-4">
+        <app-action (addAction)="playerService.addAction($event)"></app-action>
+      </div>
+    </ng-template>
+  </ion-modal>
 </ion-content>

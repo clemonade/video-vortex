@@ -1,10 +1,13 @@
-import {ChangeDetectionStrategy, Component, input, output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, input, output, viewChild} from '@angular/core';
 import {JsonPipe} from "@angular/common";
 import {
   IonCard,
   IonCardContent,
-  IonChip, IonIcon,
-  IonItem, IonItemOption, IonItemOptions,
+  IonChip,
+  IonIcon,
+  IonItem,
+  IonItemOption,
+  IonItemOptions,
   IonItemSliding,
   IonLabel,
   IonList,
@@ -39,10 +42,17 @@ import {Action} from "../../../core/models/app.model";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListComponent {
+  itemSliding = viewChild(IonItemSliding);
+
   actions = input<Action[]>([]);
   removeAction = output<number>();
 
   protected readonly CATEGORY_TYPE_COLOR_MAP = CATEGORY_TYPE_COLOR_MAP;
   protected readonly CATEGORY_TYPE_TEXT_MAP = CATEGORY_TYPE_TEXT_MAP;
   protected readonly CATEGORY_TYPE_SHORT_TEXT_MAP = CATEGORY_TYPE_SHORT_TEXT_MAP;
+
+  onRemoveAction(index: number) {
+    this.itemSliding()?.closeOpened();
+    this.removeAction.emit(index);
+  }
 }
