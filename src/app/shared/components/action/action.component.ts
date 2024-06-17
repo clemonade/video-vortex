@@ -1,6 +1,5 @@
 import {ChangeDetectionStrategy, Component, effect, output} from '@angular/core';
 import {
-  IonChip,
   IonFab,
   IonFabButton,
   IonIcon,
@@ -15,12 +14,7 @@ import {FillPipe} from "../../pipes/fill.pipe";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {PickerColumnComponent} from "../picker-column/picker-column.component";
 import {Action, ActionFormControls} from "../../../core/models/app.model";
-import {
-  CATEGORY_TYPE_COLOR_MAP,
-  CATEGORY_TYPE_SHORT_TEXT_MAP,
-  CATEGORY_TYPE_TEXT_MAP,
-  MAX_FILL_LENGTH
-} from '../../../core/constants/app.constant';
+import {CATEGORY_TYPE_TEXT_MAP, MAX_FILL_LENGTH} from '../../../core/constants/app.constant';
 import {toSignal} from "@angular/core/rxjs-interop";
 import {ChipComponent} from "../chip/chip.component";
 
@@ -76,5 +70,11 @@ export class ActionComponent {
         }
       }
     })
+  }
+
+  onAddAction() {
+    // formgroup discriminated union limitation
+    // https://github.com/angular/angular/issues/45816
+    this.addAction.emit(this.form.getRawValue() as Action);
   }
 }

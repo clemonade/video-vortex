@@ -9,7 +9,7 @@ export class PlayerService {
 
   totalForward$ = computed(() => {
     return this.actions$()
-      .filter(action => action.category === "runtime" && (action.type === "forward" || action.type === "timeshift"))
+      .filter(action => action.type === "forward" || action.type === "timeshift")
       .reduce((acc, runtime) => {
         acc += runtime.value;
         return acc;
@@ -18,7 +18,7 @@ export class PlayerService {
 
   totalRewind$ = computed(() => {
     return this.actions$()
-      .filter(action => action.category === "runtime" && (action.type === "rewind" || action.type === "timeshift"))
+      .filter(action => action.type === "rewind" || action.type === "timeshift")
       .reduce((acc, runtime) => {
         acc += runtime.value;
         return acc;
@@ -28,13 +28,13 @@ export class PlayerService {
   totalMoney$ = computed(() => {
     return this.actions$()
       .filter(action => action.category === "money")
-      .reduce((acc, runtime) => {
-        switch (runtime.type) {
+      .reduce((acc, money) => {
+        switch (money.type) {
           case "credit":
-            acc += runtime.value;
+            acc += money.value;
             break
           case "debit":
-            acc -= runtime.value;
+            acc -= money.value;
         }
         return acc;
       }, 0)

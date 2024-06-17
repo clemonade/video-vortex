@@ -27,7 +27,8 @@ export class PickerColumnComponent implements ControlValueAccessor {
   value?: string;
   disabled = false;
 
-  onChange = (value: any) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onChange = (value: unknown) => {
   };
   onTouched = () => {
   };
@@ -37,11 +38,11 @@ export class PickerColumnComponent implements ControlValueAccessor {
     this.changeDetectorRef.markForCheck();
   }
 
-  registerOnChange(onChange: any): void {
+  registerOnChange(onChange: (value: unknown) => void): void {
     this.onChange = onChange;
   }
 
-  registerOnTouched(onTouched: any): void {
+  registerOnTouched(onTouched: () => void): void {
     this.onTouched = onTouched;
   }
 

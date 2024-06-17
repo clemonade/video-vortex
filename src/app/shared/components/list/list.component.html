@@ -9,11 +9,10 @@
                 <div class="flex justify-between items-center">
                   <ion-text>{{ CATEGORY_TYPE_TEXT_MAP[action.type] }}</ion-text>
                   <div class="flex items-center">
-                    <app-chip [category]="action.category">
-                    </app-chip>
+                    <app-chip [category]="action.category"></app-chip>
                     <app-chip [category]="action.category"
-                                     [type]="action.type"
-                                     [value]="action.value">
+                              [type]="action.type"
+                              [value]="action.value">
                     </app-chip>
                   </div>
                 </div>

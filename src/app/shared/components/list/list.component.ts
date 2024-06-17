@@ -12,11 +12,7 @@ import {
   IonList,
   IonText
 } from "@ionic/angular/standalone";
-import {
-  CATEGORY_TYPE_COLOR_MAP,
-  CATEGORY_TYPE_SHORT_TEXT_MAP,
-  CATEGORY_TYPE_TEXT_MAP
-} from "../../../core/constants/app.constant";
+import {CATEGORY_TYPE_TEXT_MAP} from "../../../core/constants/app.constant";
 import {Action} from "../../../core/models/app.model";
 import {ChipComponent} from "../chip/chip.component";
 

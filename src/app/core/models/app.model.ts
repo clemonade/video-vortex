@@ -1,4 +1,4 @@
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormControl} from "@angular/forms";
 
 interface Runtime {
   category: 'runtime'
@@ -10,15 +10,15 @@ interface Money {
   type: 'credit' | 'debit'
 }
 
-type RuntimeMoney = Runtime | Money;
+export type Action = (Runtime | Money) & {
+  value: number;
+};
 
-export type Category = RuntimeMoney['category'];
-export type Type = RuntimeMoney['type'];
+export type Category = Action['category'];
+export type Type = Action['type'];
 
 export type ActionFormControls = {
   category: FormControl<Category>;
   type: FormControl<Type>;
-  value: FormControl<number>;
+  value: FormControl<Action['value']>;
 }
-
-export type Action = ReturnType<FormGroup<ActionFormControls>['getRawValue']>;

@@ -36,5 +36,6 @@ export class CardComponent {
 
   protected readonly CATEGORY_TYPE_SHORT_TEXT_MAP = CATEGORY_TYPE_SHORT_TEXT_MAP;
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   compareFn = (_: KeyValueTotal) => 0;
 }
