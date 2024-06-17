@@ -9,18 +9,12 @@
                 <div class="flex justify-between items-center">
                   <ion-text>{{ CATEGORY_TYPE_TEXT_MAP[action.type] }}</ion-text>
                   <div class="flex items-center">
-                    <ion-chip [color]="CATEGORY_TYPE_COLOR_MAP[action.category]">
-                      {{ CATEGORY_TYPE_TEXT_MAP[action.category] }}
-                    </ion-chip>
-                    <ion-chip [color]="CATEGORY_TYPE_COLOR_MAP[action.type]">
-                      @if (action.category === 'money') {
-                        {{ CATEGORY_TYPE_SHORT_TEXT_MAP[action.type] }}
-                      }
-                      {{ action.value }}
-                      @if (action.category === 'runtime') {
-                        {{ CATEGORY_TYPE_SHORT_TEXT_MAP[action.type] }}
-                      }
-                    </ion-chip>
+                    <app-chip [category]="action.category">
+                    </app-chip>
+                    <app-chip [category]="action.category"
+                                     [type]="action.type"
+                                     [value]="action.value">
+                    </app-chip>
                   </div>
                 </div>
               </ion-label>

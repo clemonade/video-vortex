@@ -1,35 +1,43 @@
 <div class="flex flex-col items-center">
-  <ion-picker>
-    <app-picker-column [formControl]="form.controls.category">
-      <ion-picker-column-option value="runtime">Runtime</ion-picker-column-option>
-      <ion-picker-column-option value="money">Money</ion-picker-column-option>
-    </app-picker-column>
+  <ion-segment [formControl]="form.controls.category">
+    @for (category of CATEGORIES; track $index) {
+      <ion-segment-button [value]="category">
+        <ion-label>{{ CATEGORY_TYPE_TEXT_MAP[category] }}</ion-label>
+      </ion-segment-button>
+    }
+  </ion-segment>
 
-    <app-picker-column [formControl]="form.controls.type">
-      <!--TODO: formArray to control disabled-->
-      <ion-picker-column-option value="rewind"
-                                [disabled]="form.controls.category.value !== 'runtime'">REW
-      </ion-picker-column-option>
-      <ion-picker-column-option value="forward"
-                                [disabled]="form.controls.category.value !== 'runtime'">FWD
-      </ion-picker-column-option>
-      <ion-picker-column-option value="timeshift"
-                                [disabled]="form.controls.category.value !== 'runtime'">Timeshift
-      </ion-picker-column-option>
-      <ion-picker-column-option value="credit"
-                                [disabled]="form.controls.category.value !== 'money'">+
-      </ion-picker-column-option>
-      <ion-picker-column-option value="debit"
-                                [disabled]="form.controls.category.value !== 'money'">-
-      </ion-picker-column-option>
-    </app-picker-column>
+  <div class="flex gap-4 items-center">
+    <div>
+      <ion-picker>
+        <app-picker-column [formControl]="form.controls.type">
+          @if (form.controls.category.value === 'runtime') {
+            @for (type of RUNTIME_TYPES; track $index) {
+              <ion-picker-column-option [value]="type">{{ CATEGORY_TYPE_TEXT_MAP[type] }}</ion-picker-column-option>
+            }
+          }
+          @if (form.controls.category.value === 'money') {
+            @for (type of MONEY_TYPES; track $index) {
+              <ion-picker-column-option [value]="type">{{ CATEGORY_TYPE_TEXT_MAP[type] }}</ion-picker-column-option>
+            }
+          }
+        </app-picker-column>
 
-    <app-picker-column [formControl]="form.controls.value">
-      @for (value of MAX_FILL_LENGTH | fill; track $index) {
-        <ion-picker-column-option [value]="$index + 1">{{ $index + 1 }}</ion-picker-column-option>
-      }
-    </app-picker-column>
-  </ion-picker>
+        <app-picker-column [formControl]="form.controls.value">
+          @for (value of MAX_FILL_LENGTH | fill; track $index) {
+            <ion-picker-column-option [value]="$index + 1">{{ $index + 1 }}</ion-picker-column-option>
+          }
+        </app-picker-column>
+      </ion-picker>
+    </div>
+
+    <div>
+      <app-chip [category]="form.controls.category.value"
+                [type]="form.controls.type.value"
+                [value]="form.controls.value.value">
+      </app-chip>
+    </div>
+  </div>
 
   <ion-fab-button>
     <ion-icon name="add" (click)="addAction.emit(form.getRawValue())"></ion-icon>

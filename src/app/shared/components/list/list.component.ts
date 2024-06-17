@@ -3,7 +3,6 @@ import {JsonPipe} from "@angular/common";
 import {
   IonCard,
   IonCardContent,
-  IonChip,
   IonIcon,
   IonItem,
   IonItemOption,
@@ -19,6 +18,7 @@ import {
   CATEGORY_TYPE_TEXT_MAP
 } from "../../../core/constants/app.constant";
 import {Action} from "../../../core/models/app.model";
+import {ChipComponent} from "../chip/chip.component";
 
 @Component({
   selector: 'app-list',
@@ -28,14 +28,14 @@ import {Action} from "../../../core/models/app.model";
     IonList,
     IonItem,
     IonLabel,
-    IonChip,
-    IonText,
     IonCard,
     IonCardContent,
     IonItemSliding,
     IonItemOptions,
     IonItemOption,
     IonIcon,
+    IonText,
+    ChipComponent,
   ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
@@ -47,9 +47,7 @@ export class ListComponent {
   actions = input<Action[]>([]);
   removeAction = output<number>();
 
-  protected readonly CATEGORY_TYPE_COLOR_MAP = CATEGORY_TYPE_COLOR_MAP;
   protected readonly CATEGORY_TYPE_TEXT_MAP = CATEGORY_TYPE_TEXT_MAP;
-  protected readonly CATEGORY_TYPE_SHORT_TEXT_MAP = CATEGORY_TYPE_SHORT_TEXT_MAP;
 
   onRemoveAction(index: number) {
     this.itemSliding()?.closeOpened();

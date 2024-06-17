@@ -1,0 +1,17 @@
+@if (type() && value()) {
+  <!--signal type narrowing limitation-->
+  <!--https://github.com/angular/angular/issues/49161-->
+  <ion-chip [color]="CATEGORY_TYPE_COLOR_MAP[type()!]">
+    @if (category() === 'money') {
+      {{ CATEGORY_TYPE_SHORT_TEXT_MAP[type()!] }}
+    }
+    {{ value()! }}
+    @if (category() === 'runtime') {
+      {{ CATEGORY_TYPE_SHORT_TEXT_MAP[type()!] }}
+    }
+  </ion-chip>
+} @else {
+  <ion-chip [color]="CATEGORY_TYPE_COLOR_MAP[category()]">
+    {{ CATEGORY_TYPE_TEXT_MAP[category()] }}
+  </ion-chip>
+}
