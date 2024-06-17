@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component, input, output, viewChild} from '@angular/core';
-import {JsonPipe} from "@angular/common";
+import {JsonPipe, UpperCasePipe} from "@angular/common";
 import {
+  IonBadge,
   IonCard,
   IonCardContent,
   IonIcon,
@@ -12,7 +13,7 @@ import {
   IonList,
   IonText
 } from "@ionic/angular/standalone";
-import {CATEGORY_TYPE_TEXT_MAP} from "../../../core/constants/app.constant";
+import {CATEGORY_TYPE_COLOR_MAP, CATEGORY_TYPE_TEXT_MAP} from "../../../core/constants/app.constant";
 import {Action} from "../../../core/models/app.model";
 import {ChipComponent} from "../chip/chip.component";
 
@@ -32,6 +33,8 @@ import {ChipComponent} from "../chip/chip.component";
     IonIcon,
     IonText,
     ChipComponent,
+    IonBadge,
+    UpperCasePipe,
   ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
@@ -42,11 +45,18 @@ export class ListComponent {
 
   actions = input<Action[]>([]);
   removeAction = output<number>();
+  editAction = output<number>();
 
+  protected readonly CATEGORY_TYPE_COLOR_MAP = CATEGORY_TYPE_COLOR_MAP;
   protected readonly CATEGORY_TYPE_TEXT_MAP = CATEGORY_TYPE_TEXT_MAP;
 
   onRemoveAction(index: number) {
     this.itemSliding()?.closeOpened();
     this.removeAction.emit(index);
+  }
+
+  onEditAction(index: number) {
+    this.itemSliding()?.closeOpened();
+    this.editAction.emit(index)
   }
 }

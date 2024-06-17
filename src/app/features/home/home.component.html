@@ -5,22 +5,30 @@
 </ion-header>
 <ion-content>
   <app-list [actions]="playerService.actions$()"
-            (removeAction)="playerService.removeAction($event)">
+            (removeAction)="playerService.removeAction($event)"
+            (editAction)="onEditAction($event)">
   </app-list>
+
   <ion-fab slot="fixed" vertical="bottom" horizontal="center">
     <ion-fab-button (click)="isActionModalOpen = true">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+
   <!--[backdropBreakpoint]="1"-->
   <ion-modal [breakpoints]="[0, 1]"
              [initialBreakpoint]="1"
              [isOpen]="isActionModalOpen"
-             (ionModalDidDismiss)="isActionModalOpen = false"
+             (ionModalDidDismiss)="onModalDidDismiss()"
   >
     <ng-template>
       <div class="p-4 pt-8">
-        <app-action (addAction)="playerService.addAction($event)"></app-action>
+        <app-action
+          [actionToEdit]="indexActionToEdit !== undefined ? this.playerService.actions$()[indexActionToEdit] : undefined"
+          (addAction)="playerService.addAction($event)"
+          (updateAction)="onUpdateAction($event)"
+        >
+        </app-action>
       </div>
     </ng-template>
   </ion-modal>

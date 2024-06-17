@@ -1,17 +1,13 @@
-@if (type() && value()) {
-  <!--signal type narrowing limitation-->
-  <!--https://github.com/angular/angular/issues/49161-->
-  <ion-chip [color]="CATEGORY_TYPE_COLOR_MAP[type()!]">
-    @if (category() === 'money') {
-      {{ CATEGORY_TYPE_SHORT_TEXT_MAP[type()!] }}
+<!--signal type narrowing limitation-->
+<!--https://github.com/angular/angular/issues/49161-->
+@if (action(); as action) {
+  <ion-chip [color]="CATEGORY_TYPE_COLOR_MAP[action.type]" [class.line-through]="lineThrough()">
+    @if (action.category === 'money') {
+      {{ CATEGORY_TYPE_SHORT_TEXT_MAP[action.type] }}
     }
-    {{ value()! }}
-    @if (category() === 'runtime') {
-      {{ CATEGORY_TYPE_SHORT_TEXT_MAP[type()!] }}
+    {{ action.value }}
+    @if (action.category === 'runtime') {
+      {{ CATEGORY_TYPE_SHORT_TEXT_MAP[action.type] }}
     }
-  </ion-chip>
-} @else {
-  <ion-chip [color]="CATEGORY_TYPE_COLOR_MAP[category()]">
-    {{ CATEGORY_TYPE_TEXT_MAP[category()] }}
   </ion-chip>
 }

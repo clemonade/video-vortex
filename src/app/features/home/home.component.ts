@@ -1,12 +1,13 @@
 import {ChangeDetectionStrategy, Component, computed, inject} from '@angular/core';
 import {IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonModal, IonToolbar} from "@ionic/angular/standalone";
 import {addIcons} from 'ionicons';
-import {add, create, trash} from 'ionicons/icons'
+import {add, arrowDown, checkmark, create, trash} from 'ionicons/icons'
 import {ListComponent} from "../../shared/components/list/list.component";
 import {CardComponent} from "../../shared/components/card/card.component";
 import {ActionComponent} from "../../shared/components/action/action.component";
 import {PlayerService} from "../../core/services/player.service";
 import {Total} from "../../shared/components/card/card.model";
+import {Action} from "../../core/models/app.model";
 
 @Component({
   selector: 'app-home',
@@ -30,6 +31,7 @@ import {Total} from "../../shared/components/card/card.model";
 export class HomeComponent {
   playerService = inject(PlayerService);
 
+  indexActionToEdit?: number;
   isActionModalOpen: boolean = false;
 
   total$ = computed<Total>(() => {
@@ -41,6 +43,24 @@ export class HomeComponent {
   })
 
   constructor() {
-    addIcons({add, create, trash})
+    // TODO: lazy load icons in child components directly
+    addIcons({add, create, trash, arrowDown, checkmark})
+  }
+
+  onEditAction(index: number) {
+    this.indexActionToEdit = index;
+    this.isActionModalOpen = true;
+  }
+
+  onUpdateAction(action: Action) {
+    if (this.indexActionToEdit !== undefined) {
+      this.playerService.updateAction(this.indexActionToEdit, action);
+      this.onModalDidDismiss();
+    }
+  }
+
+  onModalDidDismiss() {
+    this.indexActionToEdit = undefined;
+    this.isActionModalOpen = false;
   }
 }

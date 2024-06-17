@@ -1,5 +1,6 @@
-import {ChangeDetectionStrategy, Component, effect, output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, effect, input, output, untracked} from '@angular/core';
 import {
+  IonBadge,
   IonFab,
   IonFabButton,
   IonIcon,
@@ -17,6 +18,7 @@ import {Action, ActionFormControls} from "../../../core/models/app.model";
 import {CATEGORY_TYPE_TEXT_MAP, MAX_FILL_LENGTH} from '../../../core/constants/app.constant';
 import {toSignal} from "@angular/core/rxjs-interop";
 import {ChipComponent} from "../chip/chip.component";
+import {UpperCasePipe} from "@angular/common";
 
 @Component({
   selector: 'app-action',
@@ -35,13 +37,17 @@ import {ChipComponent} from "../chip/chip.component";
     IonSegmentButton,
     IonLabel,
     ChipComponent,
+    IonBadge,
+    UpperCasePipe,
   ],
   templateUrl: './action.component.html',
   styleUrl: './action.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActionComponent {
+  actionToEdit = input<Action>()
   addAction = output<Action>()
+  updateAction = output<Action>()
 
   form = new FormGroup<ActionFormControls>({
     category: new FormControl('runtime', {nonNullable: true}),
@@ -60,14 +66,25 @@ export class ActionComponent {
 
   constructor() {
     effect(() => {
-      switch (this.categoryChange$()) {
-        case "runtime": {
-          this.form.controls.type.setValue('forward')
-          break;
+      if (!untracked(this.actionToEdit)) {
+        switch (this.categoryChange$()) {
+          case "runtime": {
+            this.form.controls.type.setValue('forward')
+            break;
+          }
+          case "money": {
+            this.form.controls.type.setValue('credit')
+          }
         }
-        case "money": {
-          this.form.controls.type.setValue('credit')
-        }
+      }
+    })
+
+    effect(() => {
+      if (this.actionToEdit()) {
+        this.form.patchValue(this.actionToEdit()!);
+        this.form.controls.category.disable();
+      } else {
+        this.form.controls.category.enable();
       }
     })
   }
@@ -76,5 +93,10 @@ export class ActionComponent {
     // formgroup discriminated union limitation
     // https://github.com/angular/angular/issues/45816
     this.addAction.emit(this.form.getRawValue() as Action);
+  }
+
+  // TODO: unedited action handling
+  onUpdateAction() {
+    this.updateAction.emit(this.form.getRawValue() as Action)
   }
 }

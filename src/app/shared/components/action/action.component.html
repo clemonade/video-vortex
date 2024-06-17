@@ -31,15 +31,30 @@
       </ion-picker>
     </div>
 
-    <div>
-      <app-chip [category]="form.controls.category.value"
-                [type]="form.controls.type.value"
-                [value]="form.controls.value.value">
+    <div class="flex flex-col items-center gap-1">
+      <ion-badge>
+        {{ (actionToEdit() ? 'Update' : 'Add') | uppercase }}
+      </ion-badge>
+      @if (actionToEdit()) {
+        <app-chip [action]="actionToEdit()"
+                  [lineThrough]="true">
+        </app-chip>
+        <ion-icon name="arrow-down"></ion-icon>
+      }
+      <app-chip [action]="$any({
+        category: form.controls.category.value,
+        type: form.controls.type.value,
+        value: form.controls.value.value,
+      })">
       </app-chip>
     </div>
   </div>
 
   <ion-fab-button>
-    <ion-icon name="add" (click)="onAddAction()"></ion-icon>
+    @if (actionToEdit()) {
+      <ion-icon name="checkmark" (click)="onUpdateAction()"></ion-icon>
+    } @else {
+      <ion-icon name="add" (click)="onAddAction()"></ion-icon>
+    }
   </ion-fab-button>
 </div>

@@ -7,22 +7,21 @@
             <ion-item>
               <ion-label>
                 <div class="flex justify-between items-center">
-                  <ion-text>{{ CATEGORY_TYPE_TEXT_MAP[action.type] }}</ion-text>
-                  <div class="flex items-center">
-                    <app-chip [category]="action.category"></app-chip>
-                    <app-chip [category]="action.category"
-                              [type]="action.type"
-                              [value]="action.value">
-                    </app-chip>
+                  <div class="flex items-center gap-2">
+                    <ion-text>{{ CATEGORY_TYPE_TEXT_MAP[action.type] }}</ion-text>
+                    <ion-badge [color]="CATEGORY_TYPE_COLOR_MAP[action.category]">
+                      {{ CATEGORY_TYPE_TEXT_MAP[action.category] | uppercase }}
+                    </ion-badge>
                   </div>
+                  <app-chip [action]="action"></app-chip>
                 </div>
               </ion-label>
             </ion-item>
 
             <ion-item-options side="end">
-              <!--<ion-item-option>-->
-              <!--  <ion-icon name="create" slot="icon-only"></ion-icon>-->
-              <!--</ion-item-option>-->
+              <ion-item-option>
+                <ion-icon name="create" slot="icon-only" (click)="onEditAction($index)"></ion-icon>
+              </ion-item-option>
               <ion-item-option color="danger">
                 <ion-icon name="trash" slot="icon-only" (click)="onRemoveAction($index)"></ion-icon>
               </ion-item-option>

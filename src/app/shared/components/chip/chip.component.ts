@@ -1,11 +1,7 @@
 import {ChangeDetectionStrategy, Component, input} from '@angular/core';
-import {
-  CATEGORY_TYPE_COLOR_MAP,
-  CATEGORY_TYPE_SHORT_TEXT_MAP,
-  CATEGORY_TYPE_TEXT_MAP
-} from "../../../core/constants/app.constant";
+import {CATEGORY_TYPE_COLOR_MAP, CATEGORY_TYPE_SHORT_TEXT_MAP} from "../../../core/constants/app.constant";
 import {IonChip} from "@ionic/angular/standalone";
-import {Category, Type} from "../../../core/models/app.model";
+import {Action} from "../../../core/models/app.model";
 
 @Component({
   selector: 'app-chip',
@@ -18,11 +14,9 @@ import {Category, Type} from "../../../core/models/app.model";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChipComponent {
-  category = input<Category>('runtime');
-  type = input<Type>();
-  value = input<number>();
+  action = input<Action>();
+  lineThrough = input<boolean>(false);
 
   protected readonly CATEGORY_TYPE_COLOR_MAP = CATEGORY_TYPE_COLOR_MAP;
-  protected readonly CATEGORY_TYPE_TEXT_MAP = CATEGORY_TYPE_TEXT_MAP;
   protected readonly CATEGORY_TYPE_SHORT_TEXT_MAP = CATEGORY_TYPE_SHORT_TEXT_MAP;
 }
