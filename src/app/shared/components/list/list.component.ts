@@ -2,8 +2,6 @@ import {ChangeDetectionStrategy, Component, input, output, viewChild} from '@ang
 import {JsonPipe, UpperCasePipe} from "@angular/common";
 import {
   IonBadge,
-  IonCard,
-  IonCardContent,
   IonIcon,
   IonItem,
   IonItemOption,
@@ -11,11 +9,14 @@ import {
   IonItemSliding,
   IonLabel,
   IonList,
+  IonReorder,
+  IonReorderGroup,
   IonText
 } from "@ionic/angular/standalone";
 import {CATEGORY_TYPE_COLOR_MAP, CATEGORY_TYPE_TEXT_MAP} from "../../../core/constants/app.constant";
 import {Action} from "../../../core/models/app.model";
 import {ChipComponent} from "../chip/chip.component";
+import {ItemReorderEventDetail} from "@ionic/angular";
 
 @Component({
   selector: 'app-list',
@@ -25,8 +26,6 @@ import {ChipComponent} from "../chip/chip.component";
     IonList,
     IonItem,
     IonLabel,
-    IonCard,
-    IonCardContent,
     IonItemSliding,
     IonItemOptions,
     IonItemOption,
@@ -35,6 +34,8 @@ import {ChipComponent} from "../chip/chip.component";
     ChipComponent,
     IonBadge,
     UpperCasePipe,
+    IonReorderGroup,
+    IonReorder,
   ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
@@ -46,6 +47,7 @@ export class ListComponent {
   actions = input<Action[]>([]);
   removeAction = output<number>();
   editAction = output<number>();
+  reorderActions = output<Action[]>()
 
   protected readonly CATEGORY_TYPE_COLOR_MAP = CATEGORY_TYPE_COLOR_MAP;
   protected readonly CATEGORY_TYPE_TEXT_MAP = CATEGORY_TYPE_TEXT_MAP;
@@ -58,5 +60,9 @@ export class ListComponent {
   onEditAction(index: number) {
     this.itemSliding()?.closeOpened();
     this.editAction.emit(index)
+  }
+
+  onItemReorder(event: CustomEvent<ItemReorderEventDetail>) {
+    this.reorderActions.emit(event.detail.complete(this.actions()));
   }
 }

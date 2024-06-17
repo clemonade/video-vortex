@@ -6,7 +6,8 @@
 <ion-content>
   <app-list [actions]="playerService.actions$()"
             (removeAction)="playerService.removeAction($event)"
-            (editAction)="onEditAction($event)">
+            (editAction)="onEditAction($event)"
+            (reorderActions)="playerService.reorderActions($event)">
   </app-list>
 
   <ion-fab slot="fixed" vertical="bottom" horizontal="center">

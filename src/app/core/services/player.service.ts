@@ -54,4 +54,8 @@ export class PlayerService {
       return [...actions];
     });
   }
+
+  reorderActions(actions: Action[]) {
+    this.actions$.set(actions);
+  }
 }
