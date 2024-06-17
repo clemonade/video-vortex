@@ -18,11 +18,11 @@
         </ion-item>
 
         <ion-item-options side="end">
-          <ion-item-option>
-            <ion-icon name="create" slot="icon-only" (click)="onEditAction($index)"></ion-icon>
+          <ion-item-option (click)="onEditAction($index)">
+            <ion-icon name="create" slot="icon-only"></ion-icon>
           </ion-item-option>
-          <ion-item-option color="danger">
-            <ion-icon name="trash" slot="icon-only" (click)="onRemoveAction($index)"></ion-icon>
+          <ion-item-option color="danger" (click)="onRemoveAction($index)">
+            <ion-icon name="trash" slot="icon-only"></ion-icon>
           </ion-item-option>
         </ion-item-options>
       </ion-item-sliding>

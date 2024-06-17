@@ -49,12 +49,14 @@
       </app-chip>
     </div>
   </div>
-
-  <ion-fab-button>
-    @if (actionToEdit()) {
-      <ion-icon name="checkmark" (click)="onUpdateAction()"></ion-icon>
-    } @else {
-      <ion-icon name="add" (click)="onAddAction()"></ion-icon>
-    }
-  </ion-fab-button>
+  
+  @if (actionToEdit()) {
+    <ion-fab-button (click)="onUpdateAction()">
+      <ion-icon name="checkmark"></ion-icon>
+    </ion-fab-button>
+  } @else {
+    <ion-fab-button (click)="onAddAction()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  }
 </div>
