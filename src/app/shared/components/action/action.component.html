@@ -1,5 +1,5 @@
 <div class="flex flex-col items-center">
-  <ion-segment [formControl]="form.controls.category">
+  <ion-segment [formControl]="categoryForm">
     @for (category of CATEGORIES; track $index) {
       <ion-segment-button [value]="category">
         <ion-label>{{ CATEGORY_TYPE_TEXT_MAP[category] }}</ion-label>
@@ -9,53 +9,54 @@
 
   <div class="flex gap-4 items-center">
     <div>
-      <ion-picker>
-        <app-picker-column [formControl]="form.controls.type">
-          @if (form.controls.category.value === 'runtime') {
-            @for (type of RUNTIME_TYPES; track $index) {
-              <ion-picker-column-option [value]="type">{{ CATEGORY_TYPE_TEXT_MAP[type] }}</ion-picker-column-option>
+      @if (categoryForm.value === 'runtime') {
+        <ng-container [ngTemplateOutlet]="picker"
+                      [ngTemplateOutletContext]="{form: runtimeForm, types: RUNTIME_TYPES}">
+        </ng-container>
+      }
+      @if (categoryForm.value === 'money') {
+        <ng-container [ngTemplateOutlet]="picker"
+                      [ngTemplateOutletContext]="{form: moneyForm, types: MONEY_TYPES}">
+        </ng-container>
+      }
+      <ng-template #picker let-form="form" let-types="types">
+        <ion-picker>
+          <app-picker-column [formControl]="form.controls.type">
+            @for (type of types; track $index) {
+              <ion-picker-column-option [value]="type">{{ $any(CATEGORY_TYPE_TEXT_MAP)[type] }}
+              </ion-picker-column-option>
             }
-          }
-          @if (form.controls.category.value === 'money') {
-            @for (type of MONEY_TYPES; track $index) {
-              <ion-picker-column-option [value]="type">{{ CATEGORY_TYPE_TEXT_MAP[type] }}</ion-picker-column-option>
+          </app-picker-column>
+          <app-picker-column [formControl]="form.controls.value">
+            @for (value of MAX_FILL_LENGTH | fill; track $index) {
+              <ion-picker-column-option [value]="$index + 1">{{ $index + 1 }}</ion-picker-column-option>
             }
-          }
-        </app-picker-column>
-
-        <app-picker-column [formControl]="form.controls.value">
-          @for (value of MAX_FILL_LENGTH | fill; track $index) {
-            <ion-picker-column-option [value]="$index + 1">{{ $index + 1 }}</ion-picker-column-option>
-          }
-        </app-picker-column>
-      </ion-picker>
+          </app-picker-column>
+        </ion-picker>
+      </ng-template>
     </div>
 
     <div class="flex flex-col items-center gap-1">
       <ion-badge>
-        {{ (actionToEdit() ? 'Update' : 'Add') | uppercase }}
+        {{ (actionToEdit() ? "Update" : "Add") | uppercase }}
       </ion-badge>
-      @if (actionToEdit()) {
-        <app-chip [action]="actionToEdit()"
+      @if (actionToEdit(); as action) {
+        <app-chip [action]="action"
                   [lineThrough]="true">
         </app-chip>
         <ion-icon name="arrow-down"></ion-icon>
       }
-      <app-chip [action]="$any({
-        category: form.controls.category.value,
-        type: form.controls.type.value,
-        value: form.controls.value.value,
-      })">
-      </app-chip>
+      <app-chip [action]="CATEGORY_FORM_MAP[this.categoryForm.value].getRawValue()"></app-chip>
     </div>
   </div>
-  
+
   @if (actionToEdit()) {
-    <ion-fab-button (click)="onUpdateAction()">
+    <!--TODO: unedited action handling-->
+    <ion-fab-button (click)="this.updateAction.emit(CATEGORY_FORM_MAP[this.categoryForm.value].getRawValue())">
       <ion-icon name="checkmark"></ion-icon>
     </ion-fab-button>
   } @else {
-    <ion-fab-button (click)="onAddAction()">
+    <ion-fab-button (click)="this.addAction.emit(CATEGORY_FORM_MAP[this.categoryForm.value].getRawValue())">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   }

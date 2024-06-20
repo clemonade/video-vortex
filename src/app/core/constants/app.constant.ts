@@ -1,4 +1,4 @@
-import {Category, Type} from "../models/app.model";
+import {Category, Money, Runtime, Type} from "../models/app.model";
 
 export const MAX_FILL_LENGTH = 25;
 
@@ -31,3 +31,15 @@ export const CATEGORY_TYPE_SHORT_TEXT_MAP: Record<Category | Type, string> = {
   credit: '+ $',
   debit: '- $',
 }
+
+export const DEFAULT_RUNTIME: Runtime = {
+  category: 'runtime',
+  type: 'forward',
+  value: 1
+};
+
+export const DEFAULT_MONEY: Money = {
+  category: 'money',
+  type: 'credit',
+  value: 1
+};

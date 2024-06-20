@@ -14,7 +14,7 @@ import {Action} from "../../../core/models/app.model";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChipComponent {
-  action = input<Action>();
+  action = input.required<Action>();
   lineThrough = input<boolean>(false);
 
   protected readonly CATEGORY_TYPE_COLOR_MAP = CATEGORY_TYPE_COLOR_MAP;

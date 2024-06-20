@@ -1,4 +1,5 @@
 <ion-list>
+  <!--https://github.com/ionic-team/ionic-framework/issues/24245-->
   <ion-reorder-group [disabled]="false" (ionItemReorder)="onItemReorder($any($event))">
     @for (action of actions(); track $index) {
       <ion-item-sliding>

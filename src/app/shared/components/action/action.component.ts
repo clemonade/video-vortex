@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, effect, input, output, untracked} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, inject, input, output} from '@angular/core';
 import {
   IonBadge,
   IonFab,
@@ -12,13 +12,17 @@ import {
   IonSegmentButton
 } from "@ionic/angular/standalone";
 import {FillPipe} from "../../pipes/fill.pipe";
-import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
 import {PickerColumnComponent} from "../picker-column/picker-column.component";
-import {Action, ActionFormControls} from "../../../core/models/app.model";
-import {CATEGORY_TYPE_TEXT_MAP, MAX_FILL_LENGTH} from '../../../core/constants/app.constant';
-import {toSignal} from "@angular/core/rxjs-interop";
+import {Action, Category, Money, Runtime} from "../../../core/models/app.model";
+import {
+  CATEGORY_TYPE_TEXT_MAP,
+  DEFAULT_MONEY,
+  DEFAULT_RUNTIME,
+  MAX_FILL_LENGTH
+} from '../../../core/constants/app.constant';
 import {ChipComponent} from "../chip/chip.component";
-import {UpperCasePipe} from "@angular/common";
+import {NgTemplateOutlet, UpperCasePipe} from "@angular/common";
 
 @Component({
   selector: 'app-action',
@@ -39,64 +43,53 @@ import {UpperCasePipe} from "@angular/common";
     ChipComponent,
     IonBadge,
     UpperCasePipe,
+    NgTemplateOutlet,
   ],
   templateUrl: './action.component.html',
   styleUrl: './action.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActionComponent {
+  formBuilder = inject(FormBuilder).nonNullable;
+  changeDetectorRef = inject(ChangeDetectorRef);
+
   actionToEdit = input<Action>()
   addAction = output<Action>()
   updateAction = output<Action>()
 
-  form = new FormGroup<ActionFormControls>({
-    category: new FormControl('runtime', {nonNullable: true}),
-    type: new FormControl('forward', {nonNullable: true}),
-    value: new FormControl(1, {nonNullable: true}),
-  })
+  categoryForm = this.formBuilder.control<Category>('runtime')
+  runtimeForm = this.formBuilder.group<Runtime>(DEFAULT_RUNTIME);
+  moneyForm = this.formBuilder.group<Money>(DEFAULT_MONEY);
 
   CATEGORIES = ['runtime', 'money'] as const;
   RUNTIME_TYPES = ['rewind', 'forward', 'timeshift'] as const;
   MONEY_TYPES = ['credit', 'debit'] as const;
 
+  CATEGORY_FORM_MAP = {
+    runtime: this.runtimeForm,
+    money: this.moneyForm
+  }
+
   protected readonly CATEGORY_TYPE_TEXT_MAP = CATEGORY_TYPE_TEXT_MAP;
   protected readonly MAX_FILL_LENGTH = MAX_FILL_LENGTH;
 
-  categoryChange$ = toSignal(this.form.controls.category.valueChanges)
-
   constructor() {
     effect(() => {
-      if (!untracked(this.actionToEdit)) {
-        switch (this.categoryChange$()) {
-          case "runtime": {
-            this.form.controls.type.setValue('forward')
+      const action = this.actionToEdit();
+      if (action) {
+        this.categoryForm.setValue(action.category);
+        this.categoryForm.disable();
+        switch (action.category) {
+          case 'runtime':
+            this.runtimeForm.patchValue(action);
             break;
-          }
-          case "money": {
-            this.form.controls.type.setValue('credit')
-          }
+          case 'money':
+            this.moneyForm.patchValue(action);
         }
-      }
-    })
-
-    effect(() => {
-      if (this.actionToEdit()) {
-        this.form.patchValue(this.actionToEdit()!);
-        this.form.controls.category.disable();
+        this.changeDetectorRef.markForCheck();
       } else {
-        this.form.controls.category.enable();
+        this.categoryForm.enable();
       }
     })
-  }
-
-  onAddAction() {
-    // formgroup discriminated union limitation
-    // https://github.com/angular/angular/issues/45816
-    this.addAction.emit(this.form.getRawValue() as Action);
-  }
-
-  // TODO: unedited action handling
-  onUpdateAction() {
-    this.updateAction.emit(this.form.getRawValue() as Action)
   }
 }

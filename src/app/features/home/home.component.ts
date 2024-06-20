@@ -31,7 +31,7 @@ import {Action} from "../../core/models/app.model";
 export class HomeComponent {
   playerService = inject(PlayerService);
 
-  indexActionToEdit?: number;
+  actionToEditIndex?: number;
   isActionModalOpen: boolean = false;
 
   total$ = computed<Total>(() => {
@@ -48,19 +48,19 @@ export class HomeComponent {
   }
 
   onEditAction(index: number) {
-    this.indexActionToEdit = index;
+    this.actionToEditIndex = index;
     this.isActionModalOpen = true;
   }
 
   onUpdateAction(action: Action) {
-    if (this.indexActionToEdit !== undefined) {
-      this.playerService.updateAction(this.indexActionToEdit, action);
+    if (this.actionToEditIndex !== undefined) {
+      this.playerService.updateAction(this.actionToEditIndex, action);
       this.onModalDidDismiss();
     }
   }
 
   onModalDidDismiss() {
-    this.indexActionToEdit = undefined;
+    this.actionToEditIndex = undefined;
     this.isActionModalOpen = false;
   }
 }

@@ -25,7 +25,7 @@
     <ng-template>
       <div class="p-4 pt-8">
         <app-action
-          [actionToEdit]="indexActionToEdit !== undefined ? this.playerService.actions$()[indexActionToEdit] : undefined"
+          [actionToEdit]="actionToEditIndex !== undefined ? this.playerService.actions$()[actionToEditIndex] : undefined"
           (addAction)="playerService.addAction($event)"
           (updateAction)="onUpdateAction($event)"
         >

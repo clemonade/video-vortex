@@ -1,24 +1,18 @@
-import {FormControl} from "@angular/forms";
+interface Value {
+  value: number;
+}
 
-interface Runtime {
+export type Runtime = {
   category: 'runtime'
   type: 'forward' | 'rewind' | 'timeshift'
-}
+} & Value;
 
-interface Money {
+export type Money = {
   category: 'money'
   type: 'credit' | 'debit'
-}
+} & Value;
 
-export type Action = (Runtime | Money) & {
-  value: number;
-};
+export type Action = Runtime | Money;
 
 export type Category = Action['category'];
 export type Type = Action['type'];
-
-export type ActionFormControls = {
-  category: FormControl<Category>;
-  type: FormControl<Type>;
-  value: FormControl<Action['value']>;
-}
