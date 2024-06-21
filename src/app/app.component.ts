@@ -9,5 +9,4 @@ import {IonApp, IonRouterOutlet} from "@ionic/angular/standalone";
   styleUrl: "./app.component.scss"
 })
 export class AppComponent {
-  title = "video-vortex";
 }
