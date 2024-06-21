@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject} from "@angular/core";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {IonPickerColumn, IonPickerColumnOption} from "@ionic/angular/standalone";
 
 
 @Component({
-  selector: 'app-picker-column',
+  selector: "app-picker-column",
   standalone: true,
   imports: [
     IonPickerColumn,
@@ -17,8 +17,8 @@ import {IonPickerColumn, IonPickerColumnOption} from "@ionic/angular/standalone"
       useExisting: PickerColumnComponent
     }
   ],
-  templateUrl: './picker-column.component.html',
-  styleUrl: './picker-column.component.scss',
+  templateUrl: "./picker-column.component.html",
+  styleUrl: "./picker-column.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PickerColumnComponent implements ControlValueAccessor {

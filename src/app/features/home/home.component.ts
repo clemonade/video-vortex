@@ -1,7 +1,7 @@
-import {ChangeDetectionStrategy, Component, computed, inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, inject} from "@angular/core";
 import {IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonModal, IonToolbar} from "@ionic/angular/standalone";
-import {addIcons} from 'ionicons';
-import {add, arrowDown, checkmark, create, trash} from 'ionicons/icons'
+import {addIcons} from "ionicons";
+import {add, arrowDown, checkmark, create, trash} from "ionicons/icons";
 import {ListComponent} from "../../shared/components/list/list.component";
 import {CardComponent} from "../../shared/components/card/card.component";
 import {ActionComponent} from "../../shared/components/action/action.component";
@@ -10,7 +10,7 @@ import {Total} from "../../shared/components/card/card.model";
 import {Action} from "../../core/models/app.model";
 
 @Component({
-  selector: 'app-home',
+  selector: "app-home",
   standalone: true,
   imports: [
     IonContent,
@@ -24,8 +24,8 @@ import {Action} from "../../core/models/app.model";
     CardComponent,
     IonModal
   ],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
+  templateUrl: "./home.component.html",
+  styleUrl: "./home.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent {
@@ -40,11 +40,11 @@ export class HomeComponent {
       rewind: this.playerService.totalRewind$(),
       money: this.playerService.totalMoney$()
     };
-  })
+  });
 
   constructor() {
     // TODO: lazy load icons in child components directly
-    addIcons({add, create, trash, arrowDown, checkmark})
+    addIcons({add, create, trash, arrowDown, checkmark});
   }
 
   onEditAction(index: number) {

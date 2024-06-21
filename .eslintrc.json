@@ -15,6 +15,10 @@
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
+        "semi": "off",
+        "quotes": "off",
+        "@typescript-eslint/semi": ["error"],
+        "@typescript-eslint/quotes": "error",
         "@angular-eslint/directive-selector": [
           "error",
           {

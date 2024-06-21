@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, input} from "@angular/core";
 import {
   IonCard,
   IonCardContent,
@@ -12,7 +12,7 @@ import {KeyValuePipe} from "@angular/common";
 import {CATEGORY_TYPE_SHORT_TEXT_MAP} from "../../../core/constants/app.constant";
 
 @Component({
-  selector: 'app-card',
+  selector: "app-card",
   standalone: true,
   imports: [
     IonCard,
@@ -23,8 +23,8 @@ import {CATEGORY_TYPE_SHORT_TEXT_MAP} from "../../../core/constants/app.constant
     IonText,
     KeyValuePipe
   ],
-  templateUrl: './card.component.html',
-  styleUrl: './card.component.scss',
+  templateUrl: "./card.component.html",
+  styleUrl: "./card.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CardComponent {
@@ -32,7 +32,7 @@ export class CardComponent {
     forward: 0,
     rewind: 0,
     money: 0
-  })
+  });
 
   protected readonly CATEGORY_TYPE_SHORT_TEXT_MAP = CATEGORY_TYPE_SHORT_TEXT_MAP;
 

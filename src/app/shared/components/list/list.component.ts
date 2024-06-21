@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, input, output, viewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, input, output, viewChild} from "@angular/core";
 import {JsonPipe, UpperCasePipe} from "@angular/common";
 import {
   IonBadge,
@@ -19,7 +19,7 @@ import {ChipComponent} from "../chip/chip.component";
 import {ItemReorderEventDetail} from "@ionic/angular";
 
 @Component({
-  selector: 'app-list',
+  selector: "app-list",
   standalone: true,
   imports: [
     JsonPipe,
@@ -37,8 +37,8 @@ import {ItemReorderEventDetail} from "@ionic/angular";
     IonReorderGroup,
     IonReorder,
   ],
-  templateUrl: './list.component.html',
-  styleUrl: './list.component.scss',
+  templateUrl: "./list.component.html",
+  styleUrl: "./list.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListComponent {
@@ -47,7 +47,7 @@ export class ListComponent {
   actions = input<Action[]>([]);
   removeAction = output<number>();
   editAction = output<number>();
-  reorderActions = output<Action[]>()
+  reorderActions = output<Action[]>();
 
   protected readonly CATEGORY_TYPE_COLOR_MAP = CATEGORY_TYPE_COLOR_MAP;
   protected readonly CATEGORY_TYPE_TEXT_MAP = CATEGORY_TYPE_TEXT_MAP;
@@ -59,7 +59,7 @@ export class ListComponent {
 
   onEditAction(index: number) {
     this.itemSliding()?.closeOpened();
-    this.editAction.emit(index)
+    this.editAction.emit(index);
   }
 
   onItemReorder(event: CustomEvent<ItemReorderEventDetail>) {

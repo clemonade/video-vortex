@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { PickerColumnComponent } from './picker-column.component';
+import { PickerColumnComponent } from "./picker-column.component";
 
-describe('PickerColumnComponent', () => {
+describe("PickerColumnComponent", () => {
   let component: PickerColumnComponent;
   let fixture: ComponentFixture<PickerColumnComponent>;
 
@@ -17,7 +17,7 @@ describe('PickerColumnComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });
