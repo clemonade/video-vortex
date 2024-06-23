@@ -1,4 +1,12 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, inject, input, output} from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  effect,
+  inject,
+  input,
+  output,
+} from "@angular/core";
 import {
   IonBadge,
   IonFab,
@@ -9,20 +17,25 @@ import {
   IonPickerColumn,
   IonPickerColumnOption,
   IonSegment,
-  IonSegmentButton
+  IonSegmentButton,
 } from "@ionic/angular/standalone";
-import {FillPipe} from "../../pipes/fill.pipe";
-import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
-import {PickerColumnComponent} from "../picker-column/picker-column.component";
-import {Action, Category, Money, Runtime} from "../../../core/models/app.model";
+import { FillPipe } from "../../pipes/fill.pipe";
+import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
+import { PickerColumnComponent } from "../picker-column/picker-column.component";
+import {
+  Action,
+  Category,
+  Money,
+  Runtime,
+} from "../../../core/models/app.model";
 import {
   CATEGORY_TYPE_TEXT_MAP,
   DEFAULT_MONEY,
   DEFAULT_RUNTIME,
-  MAX_FILL_LENGTH
+  MAX_FILL_LENGTH,
 } from "../../../core/constants/app.constant";
-import {ChipComponent} from "../chip/chip.component";
-import {NgTemplateOutlet, UpperCasePipe} from "@angular/common";
+import { ChipComponent } from "../chip/chip.component";
+import { NgTemplateOutlet, UpperCasePipe } from "@angular/common";
 
 @Component({
   selector: "app-action",
@@ -47,7 +60,7 @@ import {NgTemplateOutlet, UpperCasePipe} from "@angular/common";
   ],
   templateUrl: "./action.component.html",
   styleUrl: "./action.component.scss",
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ActionComponent {
   formBuilder = inject(FormBuilder).nonNullable;
@@ -67,7 +80,7 @@ export class ActionComponent {
 
   CATEGORY_FORM_MAP = {
     runtime: this.runtimeForm,
-    money: this.moneyForm
+    money: this.moneyForm,
   };
 
   protected readonly CATEGORY_TYPE_TEXT_MAP = CATEGORY_TYPE_TEXT_MAP;

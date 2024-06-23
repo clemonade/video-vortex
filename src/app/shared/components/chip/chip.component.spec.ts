@@ -1,7 +1,7 @@
-import {ComponentFixture, TestBed} from "@angular/core/testing";
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import {ChipComponent} from "./chip.component";
-import {DEFAULT_RUNTIME} from "../../../core/constants/app.constant";
+import { ChipComponent } from "./chip.component";
+import { DEFAULT_RUNTIME } from "../../../core/constants/app.constant";
 
 describe("ChipComponent", () => {
   let component: ChipComponent;
@@ -9,9 +9,8 @@ describe("ChipComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ChipComponent]
-    })
-      .compileComponents();
+      imports: [ChipComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ChipComponent);
     fixture.componentRef.setInput("action", DEFAULT_RUNTIME);

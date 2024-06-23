@@ -8,10 +8,9 @@ describe("PickerColumnComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PickerColumnComponent]
-    })
-    .compileComponents();
-    
+      imports: [PickerColumnComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(PickerColumnComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

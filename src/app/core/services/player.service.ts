@@ -1,15 +1,17 @@
-import {computed, Injectable, signal} from "@angular/core";
-import {Action} from "../models/app.model";
+import { computed, Injectable, signal } from "@angular/core";
+import { Action } from "../models/app.model";
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class PlayerService {
   actions$ = signal<Action[]>([]);
 
   totalForward$ = computed(() => {
     return this.actions$()
-      .filter(action => action.type === "forward" || action.type === "timeshift")
+      .filter(
+        (action) => action.type === "forward" || action.type === "timeshift",
+      )
       .reduce((acc, runtime) => {
         acc += runtime.value;
         return acc;
@@ -18,7 +20,9 @@ export class PlayerService {
 
   totalRewind$ = computed(() => {
     return this.actions$()
-      .filter(action => action.type === "rewind" || action.type === "timeshift")
+      .filter(
+        (action) => action.type === "rewind" || action.type === "timeshift",
+      )
       .reduce((acc, runtime) => {
         acc += runtime.value;
         return acc;
@@ -27,7 +31,7 @@ export class PlayerService {
 
   totalMoney$ = computed(() => {
     return this.actions$()
-      .filter(action => action.category === "money")
+      .filter((action) => action.category === "money")
       .reduce((acc, money) => {
         switch (money.type) {
           case "credit":
@@ -45,7 +49,7 @@ export class PlayerService {
   }
 
   removeAction(index: number) {
-    this.actions$.update(actions => actions.toSpliced(index, 1));
+    this.actions$.update((actions) => actions.toSpliced(index, 1));
   }
 
   updateAction(index: number, updatedAction: Action) {

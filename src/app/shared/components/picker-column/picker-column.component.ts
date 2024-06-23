@@ -1,25 +1,29 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject} from "@angular/core";
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
-import {IonPickerColumn, IonPickerColumnOption} from "@ionic/angular/standalone";
-
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  inject,
+} from "@angular/core";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
+import {
+  IonPickerColumn,
+  IonPickerColumnOption,
+} from "@ionic/angular/standalone";
 
 @Component({
   selector: "app-picker-column",
   standalone: true,
-  imports: [
-    IonPickerColumn,
-    IonPickerColumnOption
-  ],
+  imports: [IonPickerColumn, IonPickerColumnOption],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: PickerColumnComponent
-    }
+      useExisting: PickerColumnComponent,
+    },
   ],
   templateUrl: "./picker-column.component.html",
   styleUrl: "./picker-column.component.scss",
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PickerColumnComponent implements ControlValueAccessor {
   changeDetectorRef = inject(ChangeDetectorRef);
@@ -28,10 +32,8 @@ export class PickerColumnComponent implements ControlValueAccessor {
   disabled = false;
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onChange = (value: unknown) => {
-  };
-  onTouched = () => {
-  };
+  onChange = (value: unknown) => {};
+  onTouched = () => {};
 
   writeValue(value: string): void {
     this.value = value;

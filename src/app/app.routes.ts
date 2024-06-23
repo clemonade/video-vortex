@@ -4,7 +4,8 @@ export const routes: Routes = [
   {
     path: "",
     pathMatch: "full",
-    loadComponent: () => import("./features/home/home.component").then(mod => mod.HomeComponent)
+    loadComponent: () =>
+      import("./features/home/home.component").then((mod) => mod.HomeComponent),
   },
   {
     path: "**",

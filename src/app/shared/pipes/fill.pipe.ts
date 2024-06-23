@@ -1,11 +1,11 @@
-import {Pipe, PipeTransform} from "@angular/core";
+import { Pipe, PipeTransform } from "@angular/core";
 
 @Pipe({
   name: "fill",
-  standalone: true
+  standalone: true,
 })
 export class FillPipe implements PipeTransform {
   transform(length: number) {
-    return Array.from<number>({length});
+    return Array.from<number>({ length });
   }
 }

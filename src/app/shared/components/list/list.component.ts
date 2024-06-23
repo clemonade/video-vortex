@@ -1,5 +1,11 @@
-import {ChangeDetectionStrategy, Component, input, output, viewChild} from "@angular/core";
-import {JsonPipe, UpperCasePipe} from "@angular/common";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  input,
+  output,
+  viewChild,
+} from "@angular/core";
+import { JsonPipe, UpperCasePipe } from "@angular/common";
 import {
   IonBadge,
   IonIcon,
@@ -11,12 +17,15 @@ import {
   IonList,
   IonReorder,
   IonReorderGroup,
-  IonText
+  IonText,
 } from "@ionic/angular/standalone";
-import {CATEGORY_TYPE_COLOR_MAP, CATEGORY_TYPE_TEXT_MAP} from "../../../core/constants/app.constant";
-import {Action} from "../../../core/models/app.model";
-import {ChipComponent} from "../chip/chip.component";
-import {ItemReorderEventDetail} from "@ionic/angular";
+import {
+  CATEGORY_TYPE_COLOR_MAP,
+  CATEGORY_TYPE_TEXT_MAP,
+} from "../../../core/constants/app.constant";
+import { Action } from "../../../core/models/app.model";
+import { ChipComponent } from "../chip/chip.component";
+import { ItemReorderEventDetail } from "@ionic/angular";
 
 @Component({
   selector: "app-list",
@@ -39,7 +48,7 @@ import {ItemReorderEventDetail} from "@ionic/angular";
   ],
   templateUrl: "./list.component.html",
   styleUrl: "./list.component.scss",
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListComponent {
   itemSliding = viewChild(IonItemSliding);
