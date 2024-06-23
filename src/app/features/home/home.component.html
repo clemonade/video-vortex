@@ -4,10 +4,12 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <app-list [actions]="playerService.actions$()"
-            (removeAction)="playerService.removeAction($event)"
-            (editAction)="onEditAction($event)"
-            (reorderActions)="playerService.reorderActions($event)">
+  <app-list
+    [actions]="playerService.actions$()"
+    (removeAction)="playerService.removeAction($event)"
+    (editAction)="onEditAction($event)"
+    (reorderActions)="playerService.reorderActions($event)"
+  >
   </app-list>
 
   <ion-fab slot="fixed" vertical="bottom" horizontal="center">
@@ -17,15 +19,20 @@
   </ion-fab>
 
   <!--[backdropBreakpoint]="1"-->
-  <ion-modal [breakpoints]="[0, 1]"
-             [initialBreakpoint]="1"
-             [isOpen]="isActionModalOpen"
-             (ionModalDidDismiss)="onModalDidDismiss()"
+  <ion-modal
+    [breakpoints]="[0, 1]"
+    [initialBreakpoint]="1"
+    [isOpen]="isActionModalOpen"
+    (ionModalDidDismiss)="onModalDidDismiss()"
   >
     <ng-template>
       <div class="p-4 pt-8">
         <app-action
-          [actionToEdit]="actionToEditIndex !== undefined ? this.playerService.actions$()[actionToEditIndex] : undefined"
+          [actionToEdit]="
+            actionToEditIndex !== undefined
+              ? this.playerService.actions$()[actionToEditIndex]
+              : undefined
+          "
           (addAction)="playerService.addAction($event)"
           (updateAction)="onUpdateAction($event)"
         >

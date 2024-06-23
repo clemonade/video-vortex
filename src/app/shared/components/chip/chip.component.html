@@ -1,11 +1,14 @@
 <!--signal type narrowing limitation-->
 <!--https://github.com/angular/angular/issues/49161-->
-<ion-chip [color]="CATEGORY_TYPE_COLOR_MAP[action().type]" [class.line-through]="lineThrough()">
-  @if (action().category === 'money') {
+<ion-chip
+  [color]="CATEGORY_TYPE_COLOR_MAP[action().type]"
+  [class.line-through]="lineThrough()"
+>
+  @if (action().category === "money") {
     {{ CATEGORY_TYPE_SHORT_TEXT_MAP[action().type] }}
   }
   {{ action().value }}
-  @if (action().category === 'runtime') {
+  @if (action().category === "runtime") {
     {{ CATEGORY_TYPE_SHORT_TEXT_MAP[action().type] }}
   }
 </ion-chip>

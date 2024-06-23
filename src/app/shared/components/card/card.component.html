@@ -8,7 +8,9 @@
       @for (total of total() | keyvalue: compareFn; track $index) {
         <div class="flex items-baseline gap-2">
           <ion-text>{{ CATEGORY_TYPE_SHORT_TEXT_MAP[total.key] }}</ion-text>
-          <ion-text><h1>{{ total.value }}</h1></ion-text>
+          <ion-text>
+            <h1>{{ total.value }}</h1>
+          </ion-text>
         </div>
       }
     </div>

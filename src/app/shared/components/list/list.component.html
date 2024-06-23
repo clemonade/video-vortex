@@ -1,12 +1,15 @@
 <ion-list>
   <!--https://github.com/ionic-team/ionic-framework/issues/24245-->
-  <ion-reorder-group [disabled]="false" (ionItemReorder)="onItemReorder($any($event))">
+  <ion-reorder-group
+    [disabled]="false"
+    (ionItemReorder)="onItemReorder($any($event))"
+  >
     @for (action of actions(); track $index) {
       <ion-item-sliding>
         <ion-item>
           <ion-reorder slot="start"></ion-reorder>
           <ion-label>
-            <div class="flex justify-between items-center">
+            <div class="flex items-center justify-between">
               <div class="flex items-center gap-2">
                 <ion-text>{{ CATEGORY_TYPE_TEXT_MAP[action.type] }}</ion-text>
                 <ion-badge [color]="CATEGORY_TYPE_COLOR_MAP[action.category]">

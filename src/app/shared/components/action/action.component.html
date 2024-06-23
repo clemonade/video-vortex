@@ -7,29 +7,39 @@
     }
   </ion-segment>
 
-  <div class="flex gap-4 items-center">
+  <div class="flex items-center gap-4">
     <div>
-      @if (categoryForm.value === 'runtime') {
-        <ng-container [ngTemplateOutlet]="picker"
-                      [ngTemplateOutletContext]="{form: runtimeForm, types: RUNTIME_TYPES}">
+      @if (categoryForm.value === "runtime") {
+        <ng-container
+          [ngTemplateOutlet]="picker"
+          [ngTemplateOutletContext]="{
+            form: runtimeForm,
+            types: RUNTIME_TYPES,
+          }"
+        >
         </ng-container>
       }
-      @if (categoryForm.value === 'money') {
-        <ng-container [ngTemplateOutlet]="picker"
-                      [ngTemplateOutletContext]="{form: moneyForm, types: MONEY_TYPES}">
+      @if (categoryForm.value === "money") {
+        <ng-container
+          [ngTemplateOutlet]="picker"
+          [ngTemplateOutletContext]="{ form: moneyForm, types: MONEY_TYPES }"
+        >
         </ng-container>
       }
       <ng-template #picker let-form="form" let-types="types">
         <ion-picker>
           <app-picker-column [formControl]="form.controls.type">
             @for (type of types; track $index) {
-              <ion-picker-column-option [value]="type">{{ $any(CATEGORY_TYPE_TEXT_MAP)[type] }}
+              <ion-picker-column-option [value]="type">
+                {{ $any(CATEGORY_TYPE_TEXT_MAP)[type] }}
               </ion-picker-column-option>
             }
           </app-picker-column>
           <app-picker-column [formControl]="form.controls.value">
             @for (value of MAX_FILL_LENGTH | fill; track $index) {
-              <ion-picker-column-option [value]="$index + 1">{{ $index + 1 }}</ion-picker-column-option>
+              <ion-picker-column-option [value]="$index + 1">
+                {{ $index + 1 }}
+              </ion-picker-column-option>
             }
           </app-picker-column>
         </ion-picker>
@@ -41,22 +51,34 @@
         {{ (actionToEdit() ? "Update" : "Add") | uppercase }}
       </ion-badge>
       @if (actionToEdit(); as action) {
-        <app-chip [action]="action"
-                  [lineThrough]="true">
-        </app-chip>
+        <app-chip [action]="action" [lineThrough]="true"></app-chip>
         <ion-icon name="arrow-down"></ion-icon>
       }
-      <app-chip [action]="CATEGORY_FORM_MAP[this.categoryForm.value].getRawValue()"></app-chip>
+      <app-chip
+        [action]="CATEGORY_FORM_MAP[this.categoryForm.value].getRawValue()"
+      ></app-chip>
     </div>
   </div>
 
   @if (actionToEdit()) {
     <!--TODO: unedited action handling-->
-    <ion-fab-button (click)="this.updateAction.emit(CATEGORY_FORM_MAP[this.categoryForm.value].getRawValue())">
+    <ion-fab-button
+      (click)="
+        this.updateAction.emit(
+          CATEGORY_FORM_MAP[this.categoryForm.value].getRawValue()
+        )
+      "
+    >
       <ion-icon name="checkmark"></ion-icon>
     </ion-fab-button>
   } @else {
-    <ion-fab-button (click)="this.addAction.emit(CATEGORY_FORM_MAP[this.categoryForm.value].getRawValue())">
+    <ion-fab-button
+      (click)="
+        this.addAction.emit(
+          CATEGORY_FORM_MAP[this.categoryForm.value].getRawValue()
+        )
+      "
+    >
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   }
