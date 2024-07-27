@@ -1,10 +1,21 @@
+<div class="px-4">
+  <ion-select
+    justify="end"
+    interface="popover"
+    [value]="sortAsc()"
+    (ionChange)="onSortChange($event.detail.value)"
+  >
+    <ion-select-option [value]="false">Most Recent</ion-select-option>
+    <ion-select-option [value]="true">Oldest</ion-select-option>
+  </ion-select>
+</div>
 <ion-list>
   <!--https://github.com/ionic-team/ionic-framework/issues/24245-->
   <ion-reorder-group
     [disabled]="false"
     (ionItemReorder)="onItemReorder($any($event))"
   >
-    @for (action of actions(); track $index) {
+    @for (action of sortedActions(); track $index) {
       <ion-item-sliding>
         <ion-item>
           <ion-reorder slot="start"></ion-reorder>
@@ -22,10 +33,13 @@
         </ion-item>
 
         <ion-item-options side="end">
-          <ion-item-option (click)="onEditAction($index)">
+          <ion-item-option (click)="onEditAction(getActionsIndex($index))">
             <ion-icon name="create" slot="icon-only"></ion-icon>
           </ion-item-option>
-          <ion-item-option color="danger" (click)="onRemoveAction($index)">
+          <ion-item-option
+            color="danger"
+            (click)="onRemoveAction(getActionsIndex($index))"
+          >
             <ion-icon name="trash" slot="icon-only"></ion-icon>
           </ion-item-option>
         </ion-item-options>

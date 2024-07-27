@@ -1,8 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   input,
   output,
+  signal,
   viewChild,
 } from "@angular/core";
 import { JsonPipe, UpperCasePipe } from "@angular/common";
@@ -17,6 +19,8 @@ import {
   IonList,
   IonReorder,
   IonReorderGroup,
+  IonSelect,
+  IonSelectOption,
   IonText,
 } from "@ionic/angular/standalone";
 import {
@@ -45,6 +49,8 @@ import { ItemReorderEventDetail } from "@ionic/angular";
     UpperCasePipe,
     IonReorderGroup,
     IonReorder,
+    IonSelect,
+    IonSelectOption,
   ],
   templateUrl: "./list.component.html",
   styleUrl: "./list.component.scss",
@@ -58,12 +64,17 @@ export class ListComponent {
   editAction = output<number>();
   reorderActions = output<Action[]>();
 
+  sortAsc = signal(false);
+  sortedActions = computed(() =>
+    this.sortAsc() ? this.actions() : this.actions().toReversed(),
+  );
+
   protected readonly CATEGORY_TYPE_COLOR_MAP = CATEGORY_TYPE_COLOR_MAP;
   protected readonly CATEGORY_TYPE_TEXT_MAP = CATEGORY_TYPE_TEXT_MAP;
 
-  onRemoveAction(index: number) {
+  onSortChange(value: boolean) {
     this.itemSliding()?.closeOpened();
-    this.removeAction.emit(index);
+    this.sortAsc.set(value);
   }
 
   onEditAction(index: number) {
@@ -71,7 +82,21 @@ export class ListComponent {
     this.editAction.emit(index);
   }
 
+  onRemoveAction(index: number) {
+    this.itemSliding()?.closeOpened();
+    this.removeAction.emit(index);
+  }
+
   onItemReorder(event: CustomEvent<ItemReorderEventDetail>) {
-    this.reorderActions.emit(event.detail.complete(this.actions()));
+    const newSortedActions: Action[] = event.detail.complete(
+      this.sortedActions(),
+    );
+    this.reorderActions.emit(
+      this.sortAsc() ? newSortedActions : newSortedActions.toReversed(),
+    );
+  }
+
+  getActionsIndex(index: number) {
+    return this.sortAsc() ? index : this.actions().length - index - 1;
   }
 }
