@@ -24,7 +24,6 @@ import { Action } from "../../core/models/app.model";
 
 @Component({
   selector: "app-home",
-  standalone: true,
   imports: [
     IonContent,
     ActionComponent,

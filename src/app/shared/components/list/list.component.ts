@@ -33,7 +33,6 @@ import { ItemReorderEventDetail } from "@ionic/angular";
 
 @Component({
   selector: "app-list",
-  standalone: true,
   imports: [
     JsonPipe,
     IonList,

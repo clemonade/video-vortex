@@ -12,7 +12,6 @@ import {
 
 @Component({
   selector: "app-picker-column",
-  standalone: true,
   imports: [IonPickerColumn, IonPickerColumnOption],
   providers: [
     {

@@ -39,7 +39,6 @@ import { NgTemplateOutlet, UpperCasePipe } from "@angular/common";
 
 @Component({
   selector: "app-action",
-  standalone: true,
   imports: [
     IonFab,
     IonFabButton,

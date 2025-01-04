@@ -8,7 +8,6 @@ import { Action } from "../../../core/models/app.model";
 
 @Component({
   selector: "app-chip",
-  standalone: true,
   imports: [IonChip],
   templateUrl: "./chip.component.html",
   styleUrl: "./chip.component.scss",

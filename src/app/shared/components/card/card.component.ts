@@ -13,7 +13,6 @@ import { CATEGORY_TYPE_SHORT_TEXT_MAP } from "../../../core/constants/app.consta
 
 @Component({
   selector: "app-card",
-  standalone: true,
   imports: [
     IonCard,
     IonCardContent,
