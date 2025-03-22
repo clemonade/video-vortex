@@ -6,13 +6,12 @@ import {
 } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import {
-  IonPickerColumn,
-  IonPickerColumnOption,
+  IonPickerColumn
 } from "@ionic/angular/standalone";
 
 @Component({
   selector: "app-picker-column",
-  imports: [IonPickerColumn, IonPickerColumnOption],
+  imports: [IonPickerColumn],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

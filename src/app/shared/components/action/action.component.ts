@@ -9,15 +9,13 @@ import {
 } from "@angular/core";
 import {
   IonBadge,
-  IonFab,
   IonFabButton,
   IonIcon,
   IonLabel,
   IonPicker,
-  IonPickerColumn,
   IonPickerColumnOption,
   IonSegment,
-  IonSegmentButton,
+  IonSegmentButton
 } from "@ionic/angular/standalone";
 import { FillPipe } from "../../pipes/fill.pipe";
 import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
@@ -40,11 +38,9 @@ import { NgTemplateOutlet, UpperCasePipe } from "@angular/common";
 @Component({
   selector: "app-action",
   imports: [
-    IonFab,
     IonFabButton,
     IonIcon,
     IonPicker,
-    IonPickerColumn,
     IonPickerColumnOption,
     FillPipe,
     ReactiveFormsModule,
@@ -55,8 +51,8 @@ import { NgTemplateOutlet, UpperCasePipe } from "@angular/common";
     ChipComponent,
     IonBadge,
     UpperCasePipe,
-    NgTemplateOutlet,
-  ],
+    NgTemplateOutlet
+],
   templateUrl: "./action.component.html",
   styleUrl: "./action.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
