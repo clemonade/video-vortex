@@ -1,8 +1,7 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
-  effect,
+  computed,
   inject,
   input,
   output,
@@ -15,7 +14,7 @@ import {
   IonPicker,
   IonPickerColumnOption,
   IonSegment,
-  IonSegmentButton
+  IonSegmentButton,
 } from "@ionic/angular/standalone";
 import { FillPipe } from "../../pipes/fill.pipe";
 import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
@@ -51,53 +50,56 @@ import { NgTemplateOutlet, UpperCasePipe } from "@angular/common";
     ChipComponent,
     IonBadge,
     UpperCasePipe,
-    NgTemplateOutlet
-],
+    NgTemplateOutlet,
+  ],
   templateUrl: "./action.component.html",
   styleUrl: "./action.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ActionComponent {
-  formBuilder = inject(FormBuilder).nonNullable;
-  changeDetectorRef = inject(ChangeDetectorRef);
+  private readonly formBuilder = inject(FormBuilder).nonNullable;
 
   actionToEdit = input<Action>();
   addAction = output<Action>();
   updateAction = output<Action>();
 
-  categoryForm = this.formBuilder.control<Category>("runtime");
-  runtimeForm = this.formBuilder.group<Runtime>(DEFAULT_RUNTIME);
-  moneyForm = this.formBuilder.group<Money>(DEFAULT_MONEY);
+  categoryForm = computed(() => {
+    const control = this.formBuilder.control<Category>("runtime");
+    const action = this.actionToEdit();
+    if (action) {
+      control.setValue(action.category);
+      control.disable();
+    }
+    return control;
+  });
 
-  CATEGORIES = ["runtime", "money"] as const;
-  RUNTIME_TYPES = ["rewind", "forward", "timeshift"] as const;
-  MONEY_TYPES = ["credit", "debit"] as const;
+  runtimeForm = computed(() => {
+    const form = this.formBuilder.group<Runtime>(DEFAULT_RUNTIME);
+    const action = this.actionToEdit();
+    if (action?.category === "runtime") {
+      form.patchValue(action);
+    }
+    return form;
+  });
 
-  CATEGORY_FORM_MAP = {
-    runtime: this.runtimeForm,
-    money: this.moneyForm,
-  };
+  moneyForm = computed(() => {
+    const form = this.formBuilder.group<Money>(DEFAULT_MONEY);
+    const action = this.actionToEdit();
+    if (action?.category === "money") {
+      form.patchValue(action);
+    }
+    return form;
+  });
+
+  readonly CATEGORIES = ["runtime", "money"] as const;
+  readonly RUNTIME_TYPES = ["rewind", "forward", "timeshift"] as const;
+  readonly MONEY_TYPES = ["credit", "debit"] as const;
+
+  readonly CATEGORY_FORM_MAP = computed(() => ({
+    runtime: this.runtimeForm(),
+    money: this.moneyForm(),
+  }));
 
   protected readonly CATEGORY_TYPE_TEXT_MAP = CATEGORY_TYPE_TEXT_MAP;
   protected readonly MAX_FILL_LENGTH = MAX_FILL_LENGTH;
-
-  constructor() {
-    effect(() => {
-      const action = this.actionToEdit();
-      if (action) {
-        this.categoryForm.setValue(action.category);
-        this.categoryForm.disable();
-        switch (action.category) {
-          case "runtime":
-            this.runtimeForm.patchValue(action);
-            break;
-          case "money":
-            this.moneyForm.patchValue(action);
-        }
-        this.changeDetectorRef.markForCheck();
-      } else {
-        this.categoryForm.enable();
-      }
-    });
-  }
 }

@@ -1,5 +1,5 @@
 <div class="flex flex-col items-center">
-  <ion-segment [formControl]="categoryForm">
+  <ion-segment [formControl]="categoryForm()">
     @for (category of CATEGORIES; track $index) {
       <ion-segment-button [value]="category">
         <ion-label>{{ CATEGORY_TYPE_TEXT_MAP[category] }}</ion-label>
@@ -9,20 +9,20 @@
 
   <div class="flex items-center gap-4">
     <div>
-      @if (categoryForm.value === "runtime") {
+      @if (categoryForm().value === "runtime") {
         <ng-container
           [ngTemplateOutlet]="picker"
           [ngTemplateOutletContext]="{
-            form: runtimeForm,
+            form: runtimeForm(),
             types: RUNTIME_TYPES,
           }"
         >
         </ng-container>
       }
-      @if (categoryForm.value === "money") {
+      @if (categoryForm().value === "money") {
         <ng-container
           [ngTemplateOutlet]="picker"
-          [ngTemplateOutletContext]="{ form: moneyForm, types: MONEY_TYPES }"
+          [ngTemplateOutletContext]="{ form: moneyForm(), types: MONEY_TYPES }"
         >
         </ng-container>
       }
@@ -55,7 +55,7 @@
         <ion-icon name="arrow-down"></ion-icon>
       }
       <app-chip
-        [action]="CATEGORY_FORM_MAP[this.categoryForm.value].getRawValue()"
+        [action]="CATEGORY_FORM_MAP()[categoryForm().value].getRawValue()"
       ></app-chip>
     </div>
   </div>
@@ -64,8 +64,8 @@
     <!--TODO: unedited action handling-->
     <ion-fab-button
       (click)="
-        this.updateAction.emit(
-          CATEGORY_FORM_MAP[this.categoryForm.value].getRawValue()
+        updateAction.emit(
+          CATEGORY_FORM_MAP()[categoryForm().value].getRawValue()
         )
       "
     >
@@ -74,9 +74,7 @@
   } @else {
     <ion-fab-button
       (click)="
-        this.addAction.emit(
-          CATEGORY_FORM_MAP[this.categoryForm.value].getRawValue()
-        )
+        addAction.emit(CATEGORY_FORM_MAP()[categoryForm().value].getRawValue())
       "
     >
       <ion-icon name="add"></ion-icon>
