@@ -7,7 +7,7 @@ import {
   signal,
   viewChild,
 } from "@angular/core";
-import { JsonPipe, UpperCasePipe } from "@angular/common";
+import { UpperCasePipe } from "@angular/common";
 import {
   IonBadge,
   IonIcon,
@@ -34,7 +34,6 @@ import { ItemReorderEventDetail } from "@ionic/angular";
 @Component({
   selector: "app-list",
   imports: [
-    JsonPipe,
     IonList,
     IonItem,
     IonLabel,

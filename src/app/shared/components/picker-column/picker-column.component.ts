@@ -5,14 +5,11 @@ import {
   inject,
 } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
-import {
-  IonPickerColumn,
-  IonPickerColumnOption,
-} from "@ionic/angular/standalone";
+import { IonPickerColumn } from "@ionic/angular/standalone";
 
 @Component({
   selector: "app-picker-column",
-  imports: [IonPickerColumn, IonPickerColumnOption],
+  imports: [IonPickerColumn],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
